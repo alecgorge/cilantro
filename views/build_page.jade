@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  include inc/job_header
+
+  h2 Build ##{build.buildNumber} &mdash; 
+    if build.success
+      span.build-status.text-success Success
+    else
+      span.build-status.text-error Failure
+    if build.inProgres
+      span.build-status  &mdash; In progress
+
+  .row-fluid
+    if build.success
+      .span6
+        h3 Build Information
+        include inc/build
+      .span6
+        h3 Artifacts
+        ul
+          each art in job.artifactsArray()
+            li
+              a(href=job.artifactLink(build, art)) #{art}
+    else
+      .span12
+        h3 Build Information
+        include inc/build
+
+  h3#console Console Output
+  pre.code
+    =build.consoleOutput

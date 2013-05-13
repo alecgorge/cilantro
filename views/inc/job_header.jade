@@ -1,0 +1,14 @@
+h1.contrained #{job.title} 
+  if req.isAuthenticated()
+    small.edit-link
+      | (
+      a(href=job.settingsLink()) Edit
+      | )
+p.description.muted #{job.description}
+.row-fluid.link-section
+  .span6
+    p
+      a(href=job.webUrl) #{job.webUrl}
+  .span6
+    p
+      a(href=job.webRepoUrl) #{job.webRepoUrl}

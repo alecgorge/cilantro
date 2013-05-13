@@ -1,0 +1,106 @@
+extends layout
+
+block content
+  h1 #{title}
+  form(action=req.path, method='post', id='addjob').form-horizontal
+    include inc/alerts
+
+    .control-group
+      label.control-label(for='title') Job Name
+      .controls
+        input(type='text', id='title', name='title', placeholder='My Java Project', value=body.title).input-xxlarge
+
+    .control-group
+      label.control-label(for='description') Description
+      .controls
+        textarea(id='description', name='description', placeholder='<code>HTML</code> is supported.').input-xxlarge #{body.description}
+        span.help-block URLs will be turned into links.
+
+    .control-group
+      label.control-label(for='buildCommand') Build Command
+      .controls
+        input(type='text', id='buildCommand', name='buildCommand', placeholder='mvn clean install', value=body.buildCommand).input-xxlarge.cmd
+        span.help-block
+          | The command to completely build the project. For example
+          | 
+          code mvn clean install
+          | . All the necessary tools and programs for building must already be installed, or the build command
+          | must install the necessary tools. 
+          em You can leave this blank if you wish.
+
+    .control-group
+      label.control-label(for='repoType') Repo Type
+      .controls
+        select(name='repoType', id='repoType')
+          option(value='git', selected) Git
+        span.help-block Git only right now, I'm afraid. I accept pull requests :)
+
+    .control-group
+      label.control-label(for='repo') Repo URL
+      .controls
+        input(type='text', id='repo', name='repo', placeholder='git://github.com/alecgorge/cilantro.git', value=body.repo).input-xxlarge.cmd
+
+    .control-group
+      label.control-label(for='branches') Branches
+      .controls
+        input(type='text', id='branches', name='branches', placeholder='master, feature1', value=body.branches).input-xxlarge.cmd
+        span.help-block 
+          em Optional. 
+          | A comma separated list of branches to build. Leave blank for default branch.
+
+    .control-group
+      label.control-label(for='webRepoUrl') Web Repo URL
+      .controls
+        input(type='text', id='webRepoUrl', name='webRepoUrl', placeholder='https://github.com/alecgorge/cilantro', value=body.webRepoUrl).input-xxlarge.cmd
+        span.help-block 
+          em Optional. 
+          | A URL where the code can be viewed online.
+
+    .control-group
+      label.control-label(for='webUrl') Website
+      .controls
+        input(type='text', id='webUrl', name='webUrl', placeholder='https://alecgorge.github.io/cilantro', value=body.webUrl).input-xxlarge.cmd
+        span.help-block 
+          em Optional. 
+          | A public website for the project.
+
+    .control-group
+      label.control-label(for='triggerKey') Trigger Key
+      .controls
+        input(type='text', id='triggerKey', name='triggerKey', placeholder='makesomethingsecurehere', value=body.triggerKey).input-xxlarge.cmd
+        span.help-block 
+          em Optional. 
+          | Use the following URL to trigger build remotely:
+          pre(id='build_url')
+            code /job/
+              span(id='build_url_title') My-Java-Project
+              | /build?token=
+              span(id='build_url_trigger') makesomethingsecurehere
+          | Optionally append 
+          code &cause=Cause+Text
+          |  to provide text that will be included in the recorded build cause.
+
+    .control-group
+      label.control-label(for='artifacts') Artifacts
+      .controls
+        input(type='text', id='artifacts', name='artifacts', placeholder='target/Output.jar', value=body.artifacts).input-xxlarge.cmd
+        span.help-block 
+          em Optional. 
+          | Using comma separated values, list the files you would like to archive after a successful build.
+          | This is useful for things like release JARs or other executables.
+
+    .control-group
+      label.control-label(for='isPublic') Make Public
+      .controls
+        label(for='isPublic')
+          - if (body.isPublic)
+            input(type='checkbox', id='isPublic', name='isPublic', value='1', checked)
+          - else
+            input(type='checkbox', id='isPublic', name='isPublic', value='1')
+          |  Allow anyone to view and download builds
+
+    if body.JobId
+      input(type='hidden', id='JobId', name='JobId', value=body.JobId)
+
+    .form-actions
+        button(type='submit').btn.btn-primary #{title}

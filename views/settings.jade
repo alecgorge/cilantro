@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  h1 #{title}
+  form(action='/settings', method='post', id='settings').form-horizontal
+    - if (typeof error != 'undefined') {
+      .alert.alert-error
+        =error
+    - }
+    - if (typeof success != 'undefined') {
+      .alert.alert-success
+        =success
+    - }
+
+    each item, i in fields
+      .control-group
+        label.control-label(for=item.key) #{item.name}
+        .controls
+          - if (item.key == 'theme')
+            select(id=item.key, name=item.key).input-xxlarge
+              each opt in settings.themes
+                - if (opt.value == item.value)
+                    option(selected, value=opt.value)
+                      =opt.text
+                -else
+                    option(value=opt.value)
+                      =opt.text
+          -else
+            input(type='text', id=item.key, name=item.key, value=item.value).input-xxlarge
+          span.help-block
+            != item.description
+
+    .form-actions
+        button(type='submit').btn.btn-primary Save

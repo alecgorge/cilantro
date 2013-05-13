@@ -1,0 +1,41 @@
+if build
+  table.table.table-bordered.table-striped
+    tbody
+      tr
+        td Build Number
+        td #{build.buildNumber}
+      if build.commit
+        tr
+          td Commit
+          td =build.commit
+      tr
+        td Branch
+        if build.branch
+          td =build.branch
+        else
+          td Default branch
+      if build.compareUrl
+        tr
+          td Compare URL
+          td
+            a(href=build.compareUrl) View diff
+            | .
+      tr
+        td Start Time
+        td
+          a(href=job.buildLink(build),datetime=build.startDate.toISOString()).date #{build.startDate}
+      tr
+        td Duration
+        td #{build.duration} seconds
+      tr
+        td Triggered By
+        td #{build.source}
+      if build.cause && build.cause.length > 0
+        tr
+          td Cause
+          td #{build.cause}
+      tr
+        td Console Output
+        td #{build.consoleOutput.split("\n").length} lines (
+          a(href=job.buildLink(build) + '#console') View
+          | )

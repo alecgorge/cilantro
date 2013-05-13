@@ -1,0 +1,11 @@
+head
+  title #{title} - #{settings.site_name}
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  - if (settings.theme == 'bootstrap')
+    != css("//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css")
+  - else
+    != css('//netdna.bootstrapcdn.com/bootswatch/2.3.1/' + settings.theme + '/bootstrap.min.css')
+  != css('app')
+  style(type='text/css')
+    body { padding-top: 60px; padding-bottom: 40px; }
+    .sidebar-nav { padding: 9px 0; } 

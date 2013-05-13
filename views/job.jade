@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  include inc/job_header
+  .row-fluid#job_stats
+    .span6
+      .box
+        h3 Build History
+        table.build-history.table.table-striped
+          thead
+            tr
+              th 
+              th Build
+              th Date
+          tbody
+            each build in builds
+              tr
+                if build.success
+                  td
+                    .alert-success &nbsp;
+                else
+                  td
+                    .alert-error &nbsp;
+                td ##{build.buildNumber}
+                td 
+                  a(href=job.buildLink(build),datetime=build.startDate.toISOString()).date
+                    = build.startDate
+    .span6
+      .box
+        h3 Last Successful
+        build = job.lastSuccess
+        if build
+          include inc/build
+        else
+          p No successful builds :(
+      .box
+        h3 Last Build
+        build = job.mostRecent
+        if build
+          include inc/build
+        else
+          p No builds :(

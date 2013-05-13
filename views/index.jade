@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  h1 #{title}
+  table.table.table-striped
+    thead
+      tr
+        th Status
+        th Name
+        th Last Success
+        th Last Failure
+        th Last Duration
+        if req.isAuthenticated()
+          th 
+    tbody
+    each job in jobs
+       tr
+        - if (job.mostRecent && job.mostRecent.success)
+          td
+            .alert-success &nbsp;
+        - else
+          td
+            .alert-error &nbsp;
+        td
+          a(href=job.link()) #{job.title}
+        - if (job.lastSuccess)
+            td
+              a(href=job.buildLink(job.lastSuccess),datetime=job.lastSuccess.startDate.toISOString()).time #{job.lastSuccess.startDate.toISOString()}
+        - else
+            td Never
+        - if (job.lastFailure)
+            td
+              a(href=job.buildLink(job.lastFailure),datetime=job.lastFailure.startDate.toISOString()).time #{job.lastFailure.startDate.toISOString()}
+        - else
+            td Never
+        - if (job.mostRecent && job.inProgress)
+            td In Progress...
+        - else if (job.mostRecent && job.inProgress == 0)
+            td #{job.mostRecent.duration} sec
+        - else
+            td 0 sec
+        if req.isAuthenticated()
+            td 
+              a(href=job.settingsLink()) Edit Job
