@@ -3,8 +3,8 @@ async = require 'async'
 logger = require 'winston'
 _ = require('sequelize').Utils._
 
-Job = require '../models/Job'
-Build = require '../models/Build'
+Job = require '../models/job'
+Build = require '../models/build'
 
 auth = require '../src/auth'
 BuildExecutor = require '../src/build_executor'

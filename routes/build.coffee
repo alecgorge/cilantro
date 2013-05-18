@@ -7,8 +7,8 @@ path = require 'path'
 auth = require '../src/auth'
 settings = require '../src/settings'
 
-Job = require '../models/Job'
-Build = require '../models/Build'
+Job = require '../models/job'
+Build = require '../models/build'
 
 module.exports.index = (req, res, next) ->
 	job_slug = req.param 'name'
