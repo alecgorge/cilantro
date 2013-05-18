@@ -38,8 +38,8 @@ db.sync()
 
 setTimeout ->
 	User.findAll().success (users) ->
-	if not users
-		User.createUser("admin", "admin", "demo")
+		if not users || user.count is 0
+			User.createUser("admin", "admin", "demo")
 , 5000
 
 app = express()
