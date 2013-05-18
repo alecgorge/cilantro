@@ -6,7 +6,7 @@ Sequelize = require 'sequelize'
 _ = Sequelize.Utils._
 
 Setting = require '../models/setting'
-Job = require '../models/Job'
+Job = require '../models/job'
 Build = require '../models/Build'
 
 async = require 'async'
