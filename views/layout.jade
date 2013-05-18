@@ -20,7 +20,7 @@ html
               li
                 a(href='/settings') Settings
               li
-                a(href='/user') My Account
+                a(href=req.user.editLink()) My Account
               li
                 a(href='/logout') Log out
             - else
