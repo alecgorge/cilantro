@@ -36,6 +36,10 @@ User.sync()
 
 db.sync()
 
+User.findAll().success (users) ->
+	if users.count is 0
+		User.createUser("admin", "admin", "demo")
+
 app = express()
 
 # all environments
@@ -79,9 +83,11 @@ app.use express.static(path.join(__dirname, "public"))
 
 # development only
 app.configure 'development', ->
+	console.log "Running in development mode."
 	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }))
 
 app.configure 'production', ->
+	console.log "Running in production mode."
 	app.use express.errorHandler()
 
 app.get "/", ui.index
