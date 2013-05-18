@@ -38,7 +38,7 @@ db.sync()
 
 setTimeout ->
 	User.findAll().success (users) ->
-		if not users || user.count is 0
+		if not users || user.length is 0
 			User.createNew("admin", "admin", "demo")
 , 3000
 
