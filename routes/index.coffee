@@ -7,7 +7,7 @@ _ = Sequelize.Utils._
 
 Setting = require '../models/setting'
 Job = require '../models/job'
-Build = require '../models/Build'
+Build = require '../models/build'
 
 async = require 'async'
 logger = require 'winston'
