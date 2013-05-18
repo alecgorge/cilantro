@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1 #{title}
+  form(action=req.path, method='post', id='edituser').form-horizontal
+    include inc/alerts
+
+    .control-group
+      label.control-label(for='username') Username
+      .controls
+        input(type='text', id='username', name='username', value=body.username).input-xxlarge
+
+    .control-group
+      label.control-label(for='name') Name
+      .controls
+        input(type='text', id='name', name='name', value=body.name).input-xxlarge
+
+    .control-group
+      label.control-label(for='password') Password
+      .controls
+        input(type='password', id='password', name='password', value=body.password).input-xxlarge.cmd
+        span.help-block Leave this blank if you want to leave the password the same.
+
+    .form-actions
+        button(type='submit').btn.btn-primary #{title}

@@ -11,6 +11,9 @@ module.exports = db.define('User', {
 	instanceMethods:
 		validPassword: (testPassword) ->
 			bcrypt.compareSync testPassword, @hash
+		editLink: () -> "/users/#{@username}/edit"
+		deleteLink: () -> "/users/#{@username}/delete"
+		updatePassword: (password) -> @updateAttributes(hash: bcrypt.hashSync(password, 8))
 
 	classMethods:
 		createNew: (name, username, password, cb) ->

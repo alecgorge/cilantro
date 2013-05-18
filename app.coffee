@@ -86,6 +86,16 @@ app.configure 'production', ->
 
 app.get "/", ui.index
 
+app.get "/users", auth.middleware, user.index
+
+app.get "/users/add", auth.middleware, user.add
+app.post "/users/add", auth.middleware, user.add_post
+
+app.get "/users/:username/edit", auth.middleware, user.edit
+app.post "/users/:username/edit", auth.middleware, user.edit_post
+
+app.post "/users/:username/delete", auth.middleware, user.delete
+
 app.get "/settings", auth.middleware, ui.settings
 app.post "/settings", auth.middleware, ui.settings_post
 

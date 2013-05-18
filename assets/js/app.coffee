@@ -16,3 +16,12 @@ $ ->
 		$('#build_url_title').text(val.replace(/[^a-zA-Z0-9.-]/g, '-'))
 
 	$('.time,.date').timeago()
+
+	$('.deleteLink').click (e) ->
+		e.preventDefault()
+
+		$.post $(this).attr('href')
+
+		$(this).parents('tr').slideUp () -> $(this).remove()
+
+		return false

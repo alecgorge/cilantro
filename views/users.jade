@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1 #{title}
+  table.table.table-striped
+    thead
+      tr
+        th Name
+        th Username
+        th 
+        th 
+    tbody
+    each user in users
+       tr
+        td #{user.name}
+        td #{user.username}
+        td
+          a(href=user.editLink()) Edit
+        td
+          a.deleteLink(href=user.deleteLink()) Delete
