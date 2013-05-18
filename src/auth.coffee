@@ -26,7 +26,7 @@ passport.serializeUser = (user, done) ->
 
 passport.deserializeUser = (id, done) ->
 	User.find(id).success (user) ->
-		return done(new Error("No user found!"), null) if not user
+		return done(null, false) if not user
 		done null, user
 
 module.exports.middleware = (req, res, next) ->
