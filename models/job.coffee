@@ -23,12 +23,7 @@ Job = db.define('Job',
 		default: 0
 ,
 	instanceMethods:
-		getBuilds: (limit=-1) ->
-			parms = order: "startDate DESC", where: JobId: @id
-			if limit > -1
-				parms['limit'] = limit
-				
-			Build.findAll(parms)
+		getBuilds: (limit=-1) -> Build.findAll(order: "startDate DESC", limit: limit, where: JobId: @id)
 		artifactsArray: () -> @artifacts.split(',').map (v) -> v.trim()
 		artifactLink: (build, artifact) -> @buildLink(build) + "/artifacts/" + artifact
 		getActions: () -> Action.findAll(where: JobId: @id)
